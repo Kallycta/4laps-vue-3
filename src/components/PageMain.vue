@@ -4,28 +4,14 @@
       <div class="mobile-slider">
         <carousel
             :items-to-show="1"
+            :itemsToScroll="1"
             :wrapAround="true"
+
         >
           <slide v-for="(item, index) in state.banners" v-bind:key="index">
                       <div class="mobile-slider__slide item" >
                         <div class="banner">
-                          <div class="banner-container-main">
-                                <div class="banner-container-name" @click="routerLink( {name: 'secondPage', params: {id: item.LIST_PAGE_URL ? item.LIST_PAGE_URL : '1' }})" >{{item.NAME}}</div>
-                            <div class="banner-container-link_video">
-                              <a class='banner-link-video' :href='`${item.PROPERTY_LINK_VALUE ? item.PROPERTY_LINK_VALUE : "#"}`'>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                                  <circle opacity="0.5" cx="10" cy="10" r="10" fill="#FC9D5C"/>
-                                  <path d="M15.333 9.99989L6.99967 14.8111L6.99967 5.18864L15.333 9.99989Z" fill="#FF6927"/>
-                                </svg>
-                                <span>Видео</span>
-                              </a>
-                            </div>
-                          </div>
-                          <div class="banner-picture-main">
-                            <div class="router-link-div" @click="routerLink(`${item.LIST_PAGE_URL ? item.LIST_PAGE_URL : '/services/community/'}`)">
-                              <img :src='`${item.PREVIEW_PICTURE ? item.PREVIEW_PICTURE : "https://expopk.ru/upload/iblock/51b/51b022afea429ec741eddb3050e51fdf.jpg" }`'>
-                            </div>
-                          </div>
+                                <img :src="`${item.PREVIEW_PICTURE}`" alt="banner_dog" @click="routerLink(item.PROPERTY_LINK_VALUE, 'notRouter')">
                         </div>
                       </div>
           </slide>
@@ -39,16 +25,18 @@
     <h3 class="banner-header">Сообщества</h3>
     <div id="slider-public" >
       <carousel
-          :items-to-show="5"
+          :items-to-show="state.communities.length > 5 ? 5 : state.communities.length"
+          :itemsToScroll="1"
           :wrapAround="true"
       >
         <slide
             v-for="(item, index) in state.communities"
             v-bind:key="index">
           <div class="mobile-slider__slide item" >
+<!--            <div class="banner-public"  @click="routerLink({name: 'secondPage', params: {id: item.ID ? item.ID : '1' }, query: {id:item.ID }})">-->
             <div class="banner-public"  @click="routerLink({name: 'secondPage', params: {id: item.ID ? item.ID : '1' }})">
-              <span class="banner-public-text">{{item.NAME ? item.NAME : "Заглушка"}}</span>
-              <img :src='`${item.UF_PREVIEW_PICTURE ? item.UF_PREVIEW_PICTURE : "https://expopk.ru/upload/iblock/51b/51b022afea429ec741eddb3050e51fdf.jpg" }`' alt="">
+              <span class="banner-public-text">{{item.NAME}}</span>
+              <img :src='`${item.UF_PREVIEW_PICTURE }`' alt="">
             </div>
           </div>
         </slide>
@@ -62,51 +50,18 @@
     <h3 class="banner-header">Анонсы</h3>
     <div id="slider-announce" >
       <carousel
-          :itemsToShow="2"
+          :itemsToShow="state.announcements.length > 2 ? 2 : state.announcements.length"
           :itemsToScroll="1"
-          :wrapAround="true"
           :snapAlign="'start'"
+          :wrapAround="true"
       >
         <slide
             v-for="(item, index) in state.announcements"
             v-bind:key="index">
           <div class="mobile-slider__slide item"  >
-            <div class="banner-announce">
-              <div class="banner-announce-container-main">
-                <div class="router-link-div"
-                    @click="routerLink(`${item.LIST_PAGE_URL ? item.LIST_PAGE_URL : '#'}`)">
-                  <div
-                      v-bind:class="{'background-color-even': index % 2 === 0, 'background-color-odd' :index % 2 !== 0 }"
-                      class="banner-announce-container-name">
-                    <div
-                        v-bind:class="{'banner-announce-date-background-even': index % 2 === 0, 'banner-announce-date-background-odd' :index % 2 !== 0 }"
-                        class="banner-announce-conteiner-date">
-                      {{getLocalDate(item.PROPERTY_DATE_VALUE ? item.PROPERTY_DATE_VALUE : null)}}
-                    </div>
-                    <div class="banner-announce-container-name_text">
-                      {{item.NAME}}
-                    </div>
-                  </div>
-                </div>
-                <div
-                    v-bind:class="{'background-color-bottom-even': index % 2 === 0, 'background-color-bottom-odd' :index % 2 !== 0 }"
-                    class="banner-announce-container-link_video">
-                  <div class='banner-announce-link-video' @click="routerLink(`${item.PROPERTY_LINK_VALUE ? item.PROPERTY_LINK_VALUE : '/services/community/'}`)">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                      <circle opacity="0.5" cx="10" cy="10" r="10" :fill='index % 2 === 0 ? "#CBEAFD" : "#FFE4C7"'/>
-                      <path d="M15.333 9.99989L6.99967 14.8111L6.99967 5.18864L15.333 9.99989Z" :fill='index % 2 === 0 ? "#00B9FF" : "#FF6927"'/>
-                    </svg>
-                    <span>{{item.PROPERTY_TYPE_VALUE ? item.PROPERTY_TYPE_VALUE : 'Видео'}}</span>
-                  </div>
-                </div>
-              </div>
-              <div
-                  class="banner-announce-picture-main">
-                <div  class="router-link-div" @click="routerLink(`${item.LIST_PAGE_URL ? item.LIST_PAGE_URL : '#'}`)">
-                  <img :src='`${item.PREVIEW_PICTURE ? item.PREVIEW_PICTURE : "https://expopk.ru/upload/iblock/51b/51b022afea429ec741eddb3050e51fdf.jpg" }`'>
-                </div>
-              </div>
-            </div>
+            <div class="banner-announce" @click="routerLink(`${item.LIST_PAGE_URL}`,'not-router')">
+              <img  :src="`${item.PREVIEW_PICTURE}`"/>
+          </div>
           </div>
         </slide>
 
@@ -141,39 +96,43 @@
         </template>
         <template v-slot:body>
           <div v-if="!showThanksMessage">
-            <form>
+            <form @submit.prevent="submitQuestion()" >
               <div>
                 <label>Являетесь ли вы специалистом, к которому обращаются за советом и коллеги и покупатели? Если да, то кратко расскажите, как вам удалось заслужить такое доверие?</label>
-                <input type="text" name="question0">
+                <input  required type="text" v-model="formData.question1">
               </div>
               <div>
                 <label>Экспертом по содержанию какого вида питомца вы являетесь?</label>
-                <input type="text" name="question1">
+                <input  required type="text" v-model="formData.question2">
               </div>
               <div>
                 <label>Являетесь ли вы заводчиком?</label>
-                <input type="text" name="question2">
+                <input  required type="text" v-model="formData.question3">
               </div>
               <div>
                 <label>Есть ли у вас питомник? Если есть, то укажите данные питомника или регистрационные данные питомцев?</label>
-                <input type="text" name="question3">
+                <input required type="text" v-model="formData.question4">
               </div>
               <div>
                 <label>Сколько лет существует питомник?</label>
-                <input type="text" name="question4">
+                <input  required type="text" v-model="formData.question5">
               </div>
               <div>
                 <label>Какие питомцы в питомнике?</label>
-                <input type="text" name="question5">
+                <input  required type="text" v-model="formData.question6">
               </div>
               <div>
                 <label>Был ли опыт посещения выставок и есть ли у ваших питомцев оценка от эксперта?</label>
-                <input type="text" name="question6">
+                <input required type="text" v-model="formData.question7">
               </div>
               <div>
                 <label>Укажите вашу дополнительную почту для ответа:</label>
-                <input type="email" name="question7">
+                <input required type="email"  v-model="formData.email">
               </div>
+
+              <button class="bottom-container-btn btn-bottom-modal" type="submit">
+                Отправить
+              </button>
             </form>
           </div>
           <div v-if="showThanksMessage" >
@@ -185,9 +144,9 @@
         </template>
         <template v-slot:footer>
           <div v-if="!showThanksMessage">
-            <button class="bottom-container-btn btn-bottom-modal" v-on:click="openTnxModal()">
-              Отправить
-            </button>
+<!--            <button class="bottom-container-btn btn-bottom-modal" type="submit">-->
+<!--              Отправить-->
+<!--            </button>-->
             <div class="bottom-container-text">
               *Вы можете указать вашу личную почту, ответ придется на вашу личную почту и почту магазина
             </div>
@@ -221,6 +180,19 @@ export default {
   data() {
     return {
       mainTnxPic: null,
+      banner_example: null,
+      announce_example: null,
+      formData: {
+        action: 'becomeExpert',
+        question1: '',
+        question2: '',
+        question3: '',
+        question4: '',
+        question5:'',
+        question6:'',
+        question7:'',
+        email: '',
+      },
       state: {
         banners: [],
         communities: [],
@@ -237,40 +209,63 @@ export default {
   },
   created() {
     this.mainTnxPic = require('../assets/mainTnxPic.svg');
+    this.banner_example = require('../assets/ban.png')
+    this.announce_example = require('../assets/an1.png')
   },
   async mounted() {
     await this.getBanners();
     await this.getCommunities();
     await this.getAnnouncements();
-    console.log(this.state.communities)
+
   },
   methods:{
   async getCommunities() {
   try {
-    const response = await fetch("https://corp-st-dev.4lapy.ru/services/community/?action=getCommunities");
+    const response = await fetch("/services/community/?action=getCommunities");
     const data = await response.json();
     this.state.communities = data.data
-    console.log(this.state.communities)
+
   }catch(e) {
     console.error(e)
   }
 },
+    async submitQuestion() {
+      const formData = new FormData();
+
+      Object.entries(this.formData).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+      try {
+        const response = await fetch('/services/community/',{
+          method: 'POST',
+          body: formData
+        }
+        );
+        const data = await response.json()
+        this.openTnxModal();
+        Object.entries(this.formData).forEach(([key, value]) => {
+          this.formData[key] = '' ;
+        });
+
+      } catch (error) {
+        console.error("Error submitting form:", error);
+        alert('Ошибка отправки: ' + error.message)
+      }
+    },
     async getBanners() {
       try {
-        const response = await fetch("https://corp-st-dev.4lapy.ru/services/community/?action=getBanners");
+        const response = await fetch("/services/community/?action=getBanners");
         const data = await response.json();
         this.state.banners = data.data;
-        console.log(this.state)
       }catch(e) {
         console.error(e)
       }
     },
     async getAnnouncements() {
       try {
-        const response = await fetch("https://corp-st-dev.4lapy.ru/services/community/?action=getAnnouncements");
+        const response = await fetch("/services/community/?action=getAnnouncements");
         const data = await response.json();
         this.state.announcements = data.data;
-        console.log(this.state)
       }catch(e) {
         console.error(e)
       }
@@ -305,8 +300,13 @@ export default {
         }
       }
     },
-    routerLink(params) {
-      this.$router.push(params)
+    routerLink(params, option = 'router') {
+
+      if(option === 'router') {
+        this.$router.push(params)
+      } else {
+        window.location.href = params
+      }
     },
 
   openModal() {

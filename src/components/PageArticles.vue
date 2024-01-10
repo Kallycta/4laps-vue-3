@@ -13,17 +13,16 @@ export default {
   },
   created() {
     const id = this.$route.params.id
+    // const id = this.$route.query.id;
     this.getEducationSection(id)
   },
   methods: {
     async getEducationSection(id) {
       try {
-        const response = await fetch(`https://corp-st-dev.4lapy.ru/services/community/?action=getEducationItem&element_id=${id}`);
-        //     const response = await fetch(` https://corp-st-dev.4lapy.ru/services/community/?action=getEducationItem&element_id=351596226`);
+        const response = await fetch(`/services/community/?action=getEducationItem&element_id=${id}`);
         const data = await response.json();
-        console.log('section',data)
         this.state.element = data.data
-        console.log(this.state);
+
       }catch(e) {
         console.error(e)
       }

@@ -17,7 +17,7 @@ props: {
 data() {
   return {
     isAccordionHide: true,
-
+    testHtml: `<table>\r\n<tr>\r\n<td>\r\nПервый колумн\r\n</td>\r\n<td>\r\nВторой колумн\r\n</td>\r\n<td>\r\nТретий колумн\r\n</td>\r\n<td>\r\nЧетвертый колумн\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\nПервый колумн\r\n</td>\r\n<td>\r\nВторой колумн\r\n</td>\r\n<td>\r\nТретий колумн\r\n</td>\r\n<td>\r\nЧетвертый колумн\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\nПервый колумн\r\n</td>\r\n<td>\r\nВторой колумн\r\n</td>\r\n<td>\r\nТретий колумн\r\n</td>\r\n<td>\r\nЧетвертый колумн\r\n</td>\r\n</tr>\r\n<tr>\r\n<td>\r\nПервый колумн\r\n</td>\r\n<td>\r\nВторой колумн\r\n</td>\r\n<td>\r\nТретий колумн\r\n</td>\r\n<td>\r\nЧетвертый колумн\r\n</td>\r\n</tr>\r\n</table>`
   }
 },
 methods: {
@@ -28,7 +28,6 @@ methods: {
     } else {
       this.$emit('changeAmountLikes', id, 'addLike')
       this.addLike(id)
-
     }
   },
 
@@ -43,27 +42,24 @@ methods: {
   },
   async addLike(id) {
     try {
-      const response = await fetch(`https://corp-st-dev.4lapy.ru/services/community/?action=addLike&element_id=${id}`);
+      const response = await fetch(`/services/community/?action=addLike&element_id=${id}`);
       const data = await response
-      console.log(data)
     } catch (e) {
       console.error(e)
     }
   },
   async addView(id) {
     try {
-      const response = await fetch(`https://corp-st-dev.4lapy.ru/services/community/?action=addView&element_id=${id}`);
+      const response = await fetch(`/services/community/?action=addView&element_id=${id}`);
       const data = await response
-      console.log(data)
     } catch (e) {
       console.error(e)
     }
   },
   async removeLike(id) {
     try {
-      const response = await fetch(`https://corp-st-dev.4lapy.ru/services/community/?action=removeLike&element_id=${id}`);
+      const response = await fetch(`/services/community/?action=removeLike&element_id=${id}`);
       const data = await response
-      console.log(data)
     } catch (e) {
       console.error(e)
     }
@@ -107,23 +103,22 @@ methods: {
               <circle cx="15" cy="15" r="15" fill="#FF6A00"/>
               <path d="M22.5 15L8 15" stroke="white" stroke-width="2"/>
             </svg>
-
           </div>
         </div>
       </div>
       <div class="community-expert-question-expand_hidden accordion" :class="{'accordiooon': isAccordionHide === false}" >
         <div class="community-expert-question-expand_hidden-container" v-if="isAccordionHide===false">
           <div class="community-expert-question-expand_hidden-divider"></div>
-          <div  class="community-expert-question-expand_hidden_text" >
+<!--          <div  class="community-expert-question-expand_hidden_text" v-html="testHtml" >-->
+          <div  class="community-expert-question-expand_hidden_text"  >
             {{item.PROPERTY_ANSWER_VALUE.TEXT}}
           </div>
         </div>
-
       </div>
-
     </div>
   </div>
 </template>
+
 
 <style >
 
