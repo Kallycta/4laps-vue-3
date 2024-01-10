@@ -34,7 +34,7 @@ export default {
         const data = await response.json();
         this.state.videoAndArticles = data.data.items;
         this.state.banner = data.data.banner;
-        console.log(data.data)
+
       }catch(e) {
         console.error(e)
       }

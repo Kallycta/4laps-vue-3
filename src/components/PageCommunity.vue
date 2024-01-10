@@ -380,13 +380,13 @@ export default {
     <button id="show-modal" @click="openModal()" class="bottom-container-btn ask-us">
       Задать вопрос</button>
 
-    <h3 v-if="Object.keys(state.educations).length" class="banner-header">Обучающие материалы по породам</h3>
-  <div v-if="state.educations?.type === 2 && Object.keys(state.educations).length">
+    <h3 v-if="Object.keys(state.educations.items).length" class="banner-header">Обучающие материалы по породам</h3>
+  <div v-if="state.educations?.type === 2 && Object.keys(state.educations.items).length">
 
     <div class="slider-kind-of-type-wrapper">
       <div class="slider-kind-of-animal-id">
         <Carousel
-            :itemsToShow="state.educations.items.length > 3 ? 3: state.educations.items.length"
+            :itemsToShow="Object.keys(state.educations.items).length >= 3 ? 3 : Object.keys(state.educations.items).length"
             :itemsToScroll="1"
             :snapAlign="'start'"
             :wrapAround="true"
@@ -414,7 +414,7 @@ export default {
       </div>
     </div>
   </div>
-  <div v-if="state.educations?.type === 3 && Object.keys(state.educations).length">
+  <div v-if="state.educations?.type === 3 && Object.keys(state.educations.items).length">
 
   <div v-for="(value, name, index) in state.educations.items" v-bind:key="index" class="slider-kind-of-type-wrapper">
       <div v-if="value.subfolders?.length" class="community-expert__kind-of-animal">{{value.NAME}}</div>

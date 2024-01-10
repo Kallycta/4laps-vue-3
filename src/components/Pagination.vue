@@ -94,12 +94,7 @@ export default {
     pages() {
       const range = [];
 
-      console.log('start', this.startPage)
-      console.log('endPage', this.endPage)
-
-
       for (let i = this.startPage; i <= this.endPage; i+= 1 ) {
-        console.log(i)
         if(i !== 0) {
           range.push({
             name: i,
@@ -111,9 +106,6 @@ export default {
 
     },
     startPage() {
-      console.log('currentPage', this.currentPage)
-      console.log('totalPages', this.totalPages)
-      console.log('maxVisibleButtons', this.maxVisibleButtons)
       if (this.currentPage === 1) {
         return 1;
       }
@@ -126,9 +118,6 @@ export default {
 
     },
     endPage() {
-      console.log('currentPage', this.currentPage)
-      console.log('totalPages', this.totalPages)
-      console.log('maxVisibleButtons', this.maxVisibleButtons)
       return Math.min(this.startPage + (this.maxVisibleButtons > this.totalPages ? this.totalPages : this.maxVisibleButtons) - 1, this.totalPages);
     },
 
