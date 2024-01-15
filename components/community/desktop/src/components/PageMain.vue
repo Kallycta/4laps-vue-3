@@ -216,6 +216,7 @@ export default {
     await this.getBanners();
     await this.getCommunities();
     await this.getAnnouncements();
+    console.log(this.state)
 
   },
   methods:{
